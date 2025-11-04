@@ -46,12 +46,13 @@ class Application(tk.Frame):
 		self.easy = tk.Button(self,text="Easy",command=lambda: self.play('easy',ai))
 		self.medium = tk.Button(self,text="Medium",command=lambda: self.play('medium',ai))
 		self.hard = tk.Button(self,text="Hard",command=lambda: self.play('hard',ai))
-		self.impossible = tk.Button(self,text="Impossible",command=lambda: self.play('impossible',ai))
 		self.dlabel.grid(row=0,column=0)
 		self.easy.grid(row=1,column=0)
 		self.medium.grid(row=2,column=0)
 		self.hard.grid(row=3,column=0)
-		self.impossible.grid(row=4,column=0)
+		if not ai:
+			self.impossible = tk.Button(self,text="Impossible",command=lambda: self.play('impossible',ai))
+			self.impossible.grid(row=4,column=0)
 	def play(self,mode,ai):
 		self.cls()
 		self.mode = mode
