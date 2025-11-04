@@ -1,0 +1,4 @@
+Easy: 98.01980198019802%
+Medium: 96.3855421686747%
+Hard: 96.47177419354839%
+Impossible: Uncalculatable (AI Is inefficient and it found 2 words in 15 mins)
