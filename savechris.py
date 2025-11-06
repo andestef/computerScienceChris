@@ -181,6 +181,7 @@ class Application(tk.Frame):
 		self.guess(self.guessBox.get()[0])
 		self.guessBox.delete(0,tk.END)
 	def guess(self,t):
+		t = t.lower()
 		if t in self.word:
 			if not t in self.right:
 				count = 0
