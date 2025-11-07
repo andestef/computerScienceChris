@@ -27,18 +27,22 @@ class Application(tk.Frame):
 		self.playbtnai.grid(row=2,column=0)
 		self.htpbtn.grid(row=3,column=0)
 	def animate(self,directory):
-		self.cls()
 		lengths = json.loads(open(directory+"/lengths.json").read())
-		for i in lengths:
-			self.cls()
-			self.i = ImageTk.PhotoImage(file=f"{directory}/{i[0]}")
-			self.cont = tk.Label(self,image=self.i)
-			self.cont.grid(row=0,column=0)
-			time.sleep(i[1])
+		self.br = False
+		self.fr(directory,lengths,0)
+	def fr(self,directory,lengths,c):
+		if self.br:
+			return
+		if len(lengths) == c:
+			c = 8
+		i = lengths[c]
+		self.i = ImageTk.PhotoImage(file=f"{directory}/{i[0]}")
+		self.img['image'] = self.i
+		c += 1
+		self.after(int(i[1]*1000),lambda: self.fr(directory,lengths,c))
 	def start_animation_ai(self):
 		self.start_animation(ai=True)
 	def start_animation(self,ai=False):
-		self.animate("savechris/frames/start_animation")
 		self.make_difficulty(ai)
 	def make_difficulty(self,ai):
 		self.cls()
@@ -191,6 +195,8 @@ class Application(tk.Frame):
 						self.rightbuttons[count]['text'] = t.upper()
 					count += 1
 				if ''.join(self.right) == self.word:
+					self.i = ImageTk.PhotoImage(file=f"savechris/frames/win/{len(self.wrong)}.jpg")
+					self.img['image'] = self.i
 					outcome = tk.Tk()
 					outcome.title("You Win!")
 					outcome.l = tk.Label(outcome,text="You Win!\nWhat Next?")
@@ -211,6 +217,7 @@ class Application(tk.Frame):
 					self.i = ImageTk.PhotoImage(file=f"savechris/frames/main/{len(self.wrong)}.jpg")
 					self.img['image'] = self.i
 			else:
+				self.animate('savechris/frames/loose_animation')
 				outcome = tk.Tk()
 				outcome.title("You Loose!")
 				outcome.l = tk.Label(outcome,text="You Loose!\nWhat Next?")
@@ -224,6 +231,7 @@ class Application(tk.Frame):
 				outcome.mainloop()
 			return False
 	def killAnd(self,outcome,next):
+		self.br = True
 		outcome.destroy()
 		if next == 0:
 			self.play(self.mode,self.ai)
