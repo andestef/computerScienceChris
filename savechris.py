@@ -74,13 +74,13 @@ class Application(tk.Frame):
 		self.rightbuttons = []
 		c = 0
 		for i in self.word:
-			self.rightbuttons.append(tk.Button(self.rightFrame,text=" ",width=3,height=1))
+			self.rightbuttons.append(tk.Button(self.rightFrame,text=" ",width=3,height=1,font=("Arial", 16)))
 			self.rightbuttons[-1].grid(row=0,column=c)
 			c += 1
 		self.rightFrame.grid(row=1,column=0)
 		self.wrongbuttons = []
 		for c in range(0,7):
-			self.wrongbuttons.append(tk.Button(self.wrongFrame,text=" ",width=3,height=1))
+			self.wrongbuttons.append(tk.Button(self.wrongFrame,text=" ",width=3,height=1,font=("Arial", 16)))
 			self.wrongbuttons[-1].grid(row=c,column=0)
 		self.wrongFrame.grid(row=0,column=1)
 		if ai:
@@ -188,7 +188,7 @@ class Application(tk.Frame):
 				for char in self.word:
 					if char == t:
 						self.right[count] = t
-						self.rightbuttons[count]['text'] = t
+						self.rightbuttons[count]['text'] = t.upper()
 					count += 1
 				if ''.join(self.right) == self.word:
 					outcome = tk.Tk()
@@ -207,7 +207,7 @@ class Application(tk.Frame):
 			if len(self.wrong) != 6:
 				if not t in self.wrong:
 					self.wrong.append(t)
-					self.wrongbuttons[len(self.wrong)-1]['text'] = t
+					self.wrongbuttons[len(self.wrong)-1]['text'] = t.upper()
 					self.i = ImageTk.PhotoImage(file=f"savechris/frames/main/{len(self.wrong)}.jpg")
 					self.img['image'] = self.i
 			else:
